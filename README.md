@@ -36,9 +36,8 @@ registro de acesso.
 
 O desenvolvimento possui 5 etapas:
 
-1. [Proteção de Ids na API com package Hashids](#1-proteção-de-ids-na-api-e-implementação-do-attribute-code): uma API
-   RESTful
-2. [CRUD de Redirects](#2-crud-de-redirects): uma API RESTful
+1. [Proteção de Ids na API com package Hashids](#1-proteção-de-ids-na-api-e-implementação-do-attribute-code)
+2. [CRUD de Redirects](#2-crud-de-redirects): uma API RESTful para gerenciar os redirects
 3. [Redirecionamento](#3-redirecionamento): Por exemplo, se o usuário acessar `http://localhost:8000/r/ABCD123`,
    ele será redirecionado para `https://google.com` conforme registrado na model.
 4. [Estatísticas de Acesso](#4-estatísticas-de-acesso): Endpoint que retorna as estatísticas de acesso do redirect
