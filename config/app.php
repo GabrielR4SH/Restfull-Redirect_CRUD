@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Vinkla\Hashids\Facades\Hashids;
 
 return [
 
@@ -167,7 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Vinkla\Hashids\HashidsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -191,7 +192,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // ...
+        'Hashids' => Hashids::class,
     ])->toArray(),
 
 ];
