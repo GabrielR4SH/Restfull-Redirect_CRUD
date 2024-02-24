@@ -4,19 +4,19 @@ Esse documento visa coletar feedbacks sobre o teste de desenvolvimento. Desde o 
 ## Antes de Iniciar o Teste
 
 1 - Fale sobre suas primeiras impressões do Teste:
-> Resposta
+> De primeira impressão achei fácil, é um CRUD de Redirect com um pacote especifico
 
 2 - Tempo estimado para o teste:
-> Resposta
+> 15 Horas
 
 3 - Qual parte você no momento considera mais difícil?
-> Resposta
+> Acredito que trabalhar com HashID pois eu nunca trabalhei com esse pacote no Laravel
 
 4 - Qual parte você no momento considera que levará mais tempo?
-> Resposta
+> Acredito que a listagem de Redirects
 
 5 - Por onde você pretende começar?
-> Resposta
+> Vou começar criando uma Model Redirect e vou passar o parametro -m para ele gerar minha Migration
 
 
 ## Após o Teste
