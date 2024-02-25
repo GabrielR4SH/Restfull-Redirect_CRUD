@@ -48,4 +48,9 @@ class RedirectController extends Controller
     {
         return $this->redirectService->redirect($code);
     }
+
+    public function getRedirectLogs($code)
+    {
+        return $this->redirectService->getRedirectLogs($code);
+    }
 }

@@ -11,8 +11,9 @@ Route::middleware('api')->group(function () {
     Route::resource('redirects', RedirectController::class)->except([
         'create', 'edit'
     ]);
-    
+
     Route::get('/r/{code}', [RedirectController::class, 'redirect']);
+    Route::get('/log/{code}', [RedirectController::class, 'getRedirectLogs']);
 
 
 });

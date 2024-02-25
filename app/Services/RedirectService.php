@@ -106,11 +106,11 @@ class RedirectService
     {
         $redirect = Redirect::where('code', $code)->first();
 
-    
+
         if (!$redirect) {
             abort(404);
         }
-    
+
         // Registro de acesso no RedirectLog
         RedirectLog::create([
             'redirect_id' => $redirect->id,
@@ -120,9 +120,9 @@ class RedirectService
             'query_params' => json_encode(request()->query()),
             'accessed_at' => now(),
         ]);
-    
+
         $urlDestino = $redirect->url_destino;
-    
+
         // Verifica se há query params na URL de destino
         $queryParams = request()->query();
         if (!empty($queryParams)) {
@@ -134,10 +134,22 @@ class RedirectService
             $mergedQueryParams = array_merge($currentQueryParams, $queryParams);
             $urlDestino = $urlParts['scheme'] . '://' . $urlParts['host'] . $urlParts['path'] . '?' . http_build_query($mergedQueryParams);
         }
-    
+
         return redirect()->to($urlDestino);
     }
-    
+
+    public function getRedirectLogs($code)
+    {
+        $redirect = Redirect::where('code', $code)->first();
+
+        if (!$redirect) {
+            abort(404);
+        }
+
+        $logs = RedirectLog::where('redirect_id', $redirect->id)->get();
+
+        return response()->json(['logs' => $logs], 200);
+    }
 
 
 
