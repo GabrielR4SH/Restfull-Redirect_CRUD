@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Redirect;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\Http;
+use App\Models\RedirectLog;
 
 
 class RedirectService
@@ -105,10 +106,11 @@ class RedirectService
     {
         $redirect = Redirect::where('code', $code)->first();
 
+    
         if (!$redirect) {
             abort(404);
         }
-
+    
         // Registro de acesso no RedirectLog
         RedirectLog::create([
             'redirect_id' => $redirect->id,
@@ -118,9 +120,9 @@ class RedirectService
             'query_params' => json_encode(request()->query()),
             'accessed_at' => now(),
         ]);
-
+    
         $urlDestino = $redirect->url_destino;
-
+    
         // Verifica se há query params na URL de destino
         $queryParams = request()->query();
         if (!empty($queryParams)) {
@@ -132,9 +134,10 @@ class RedirectService
             $mergedQueryParams = array_merge($currentQueryParams, $queryParams);
             $urlDestino = $urlParts['scheme'] . '://' . $urlParts['host'] . $urlParts['path'] . '?' . http_build_query($mergedQueryParams);
         }
-
+    
         return redirect()->to($urlDestino);
     }
+    
 
 
 
