@@ -13,7 +13,7 @@ use App\Http\Controllers\RedirectController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/redirects', [RedirectController::class, 'index'])->name('redirects.index');
+Route::get('/redirects', [RedirectController::class, 'webIndex'])->name('redirects.index');
 Route::get('/redirects/create', [RedirectController::class, 'create'])->name('redirects.create');
 Route::post('/redirects', [RedirectController::class, 'store'])->name('redirects.store');
 Route::get('/redirects/{redirect}/edit', [RedirectController::class, 'edit'])->name('redirects.edit');

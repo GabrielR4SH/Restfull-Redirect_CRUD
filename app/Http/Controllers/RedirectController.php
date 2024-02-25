@@ -3,45 +3,77 @@
 namespace App\Http\Controllers;
 
 use App\Models\Redirect;
-use App\Http\Requests\CreateRedirectRequest;
+use Illuminate\Http\Request;
+use App\Services\RedirectService;
 
 class RedirectController extends Controller
 {
-    public function index()
+    protected $redirectService;
+
+    public function __construct(RedirectService $redirectService)
+    {
+        $this->redirectService = $redirectService;
+    }
+
+    // Métodos para interação com as views no frontend (rotas web)
+    public function webIndex()
     {
         $redirects = Redirect::all();
         return view('redirects.index', compact('redirects'));
     }
 
-    public function show(Redirect $redirect)
+    public function create()
     {
-        return $redirect;
+        //
     }
 
-    public function store(CreateRedirectRequest $request)
+    public function edit($id)
     {
-        $redirect = Redirect::create([
-            'url' => $request->input('url'),
+        //
+    }
+
+    // Métodos para interação com a API (rotas api)
+    public function index()
+    {
+        $redirects = Redirect::all();
+    
+        return response()->json($redirects);
+    }
+
+    public function show($id)
+    {
+        $redirect = Redirect::findOrFail($id);
+        return response()->json($redirect);
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'url_destino' => 'required|string',
+            'ativo' => 'required|boolean',
         ]);
 
-        return response()->json($redirect, 201);
+        $this->redirectService->createRedirect($validatedData);
+
+        return response()->json(['message' => 'Redirect created successfully'], 201);
     }
 
-
-    public function update(CreateRedirectRequest $request, Redirect $redirect)
+    public function update(Request $request, $id)
     {
-        $redirect->update([
-            'url' => $request->input('url'),
+        $validatedData = $request->validate([
+            'url_destino' => 'required|string',
+            'ativo' => 'required|boolean',
         ]);
 
-        return response()->json($redirect, 200);
+        $this->redirectService->updateRedirect($id, $validatedData);
+
+        return response()->json(['message' => 'Redirect updated successfully'], 200);
     }
 
-    public function destroy(Redirect $redirect)
+    public function destroy($id)
     {
-        $redirect->delete();
+        $this->redirectService->deleteRedirect($id);
 
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Redirect deleted successfully'], 204);
     }
 }
-
