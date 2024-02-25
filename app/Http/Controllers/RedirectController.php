@@ -37,9 +37,9 @@ class RedirectController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $code)
     {
-        //
+        return $this->redirectService->update($request, $code);
     }
 
     public function destroy($id)
