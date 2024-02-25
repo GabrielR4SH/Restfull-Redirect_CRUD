@@ -43,4 +43,9 @@ class RedirectController extends Controller
     {
         return $this->redirectService->destroy($id);
     }
+
+    public function redirect($code)
+    {
+        return $this->redirectService->redirect($code);
+    }
 }

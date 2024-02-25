@@ -101,5 +101,41 @@ class RedirectService
         return response()->json(['message' => 'Redirect deleted'], 200);
     }
 
+    public function redirect($code)
+    {
+        $redirect = Redirect::where('code', $code)->first();
+
+        if (!$redirect) {
+            abort(404);
+        }
+
+        // Registro de acesso no RedirectLog
+        RedirectLog::create([
+            'redirect_id' => $redirect->id,
+            'ip' => request()->ip(),
+            'user_agent' => request()->header('User-Agent'),
+            'referer' => request()->header('Referer'),
+            'query_params' => json_encode(request()->query()),
+            'accessed_at' => now(),
+        ]);
+
+        $urlDestino = $redirect->url_destino;
+
+        // Verifica se há query params na URL de destino
+        $queryParams = request()->query();
+        if (!empty($queryParams)) {
+            $urlParts = parse_url($urlDestino);
+            $currentQueryParams = [];
+            if (isset($urlParts['query'])) {
+                parse_str($urlParts['query'], $currentQueryParams);
+            }
+            $mergedQueryParams = array_merge($currentQueryParams, $queryParams);
+            $urlDestino = $urlParts['scheme'] . '://' . $urlParts['host'] . $urlParts['path'] . '?' . http_build_query($mergedQueryParams);
+        }
+
+        return redirect()->to($urlDestino);
+    }
+
+
 
 }

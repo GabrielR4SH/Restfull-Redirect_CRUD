@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Redirect extends Model
 {
     use SoftDeletes;
+
+    protected $fillable = [
+        'url_destino', 'code', 'ativo', 'last_access'
+    ];
     protected $dates = ['deleted_at'];
 
     public function getRouteKeyName()
