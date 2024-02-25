@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('redirects', function (Blueprint $table) {
             $table->id();
             $table->string('url_destino');
-            $table->string('code'); // Adicionando o campo 'code'
+            $table->string('code');
             $table->boolean('ativo')->default(true);
             $table->timestamp('last_access')->nullable();
             $table->timestamps();
+            $table->softDeletes(); // Adicionando o SoftDelete
         });
     }
 

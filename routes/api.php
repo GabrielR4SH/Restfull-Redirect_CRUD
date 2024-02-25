@@ -9,7 +9,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('api')->group(function () {
     Route::get('/redirects', [RedirectController::class, 'index']);
-    Route::get('/demo', [RedirectController::class, 'hashids_demo']);
     Route::post('/redirects', [RedirectController::class, 'store']);
     Route::get('/redirects/{redirect}', [RedirectController::class, 'show']);
     Route::put('/redirects/{redirect}', [RedirectController::class, 'update']);

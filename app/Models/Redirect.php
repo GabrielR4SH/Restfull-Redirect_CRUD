@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Hashids\Facades\Hashids;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Redirect extends Model
 {
-    use HasFactory;
-
-    protected $guarded = [];
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     public function getRouteKeyName()
     {

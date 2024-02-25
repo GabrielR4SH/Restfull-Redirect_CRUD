@@ -17,9 +17,6 @@ class RedirectController extends Controller
         $this->redirectService = $redirectService;
     }
 
-    // Métodos para interação com as views no frontend (rotas web)
-
-    // Métodos para interação com a API (rotas api)
     public function index()
     {
         return $this->redirectService->index();
