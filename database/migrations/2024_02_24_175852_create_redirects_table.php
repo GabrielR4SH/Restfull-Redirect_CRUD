@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('redirects', function (Blueprint $table) {
-        $table->id();
-        $table->string('url_destino');
-        $table->boolean('ativo')->default(true);
-        $table->timestamps();
+            $table->id();
+            $table->string('url_destino');
+            $table->string('code')->unique(); // Adicionando o campo 'code'
+            $table->boolean('ativo')->default(true);
+            $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

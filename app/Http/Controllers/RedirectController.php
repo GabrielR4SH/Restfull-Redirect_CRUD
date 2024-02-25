@@ -9,9 +9,13 @@ class RedirectController extends Controller
 {
     public function index()
     {
-        //$redirects = Redirect::all();
-        //return view('redirects.index', compact('redirects'));
-        return view('redirects.index');
+        $redirects = Redirect::all();
+        return view('redirects.index', compact('redirects'));
+    }
+
+    public function show(Redirect $redirect)
+    {
+        return $redirect;
     }
 
     public function store(CreateRedirectRequest $request)
@@ -23,10 +27,6 @@ class RedirectController extends Controller
         return response()->json($redirect, 201);
     }
 
-    public function show(Redirect $redirect)
-    {
-        return $redirect;
-    }
 
     public function update(CreateRedirectRequest $request, Redirect $redirect)
     {
