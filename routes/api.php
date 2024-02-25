@@ -14,6 +14,6 @@ Route::middleware('api')->group(function () {
 
     Route::get('/r/{code}', [RedirectController::class, 'redirect']);
     Route::get('/log/{code}', [RedirectController::class, 'getRedirectLogs']);
-
+    Route::get('/redirects/{redirect}/stats', [RedirectController::class, 'getStats']);
 
 });

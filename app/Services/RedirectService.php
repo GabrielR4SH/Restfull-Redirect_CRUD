@@ -6,6 +6,7 @@ use App\Models\Redirect;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\Http;
 use App\Models\RedirectLog;
+use Illuminate\Support\Facades\DB;
 
 
 class RedirectService
@@ -151,6 +152,40 @@ class RedirectService
         return response()->json(['logs' => $logs], 200);
     }
 
+    public function getStats($code)
+    {
+        $redirect = Redirect::where('code', $code)->first();
 
+        if (!$redirect) {
+            abort(404);
+        }
+
+        $totalAccesses = RedirectLog::where('redirect_id', $redirect->id)->count();
+
+        $uniqueAccesses = RedirectLog::where('redirect_id', $redirect->id)
+            ->distinct('ip')
+            ->count('ip');
+
+        $topReferrers = RedirectLog::where('redirect_id', $redirect->id)
+            ->select('referer', DB::raw('count(*) as total'))
+            ->groupBy('referer')
+            ->orderByDesc('total')
+            ->limit(5)
+            ->get();
+
+        $dateAccesses = RedirectLog::where('redirect_id', $redirect->id)
+            ->select(DB::raw('date(accessed_at) as date'), DB::raw('count(*) as total'), DB::raw('count(distinct ip) as unique_ips'))
+            ->groupBy('date')
+            ->orderByDesc('date')
+            ->limit(10)
+            ->get();
+
+        return response()->json([
+            'total_accesses' => $totalAccesses,
+            'unique_accesses' => $uniqueAccesses,
+            'top_referrers' => $topReferrers,
+            'date_accesses' => $dateAccesses,
+        ], 200);
+    }
 
 }

@@ -53,4 +53,9 @@ class RedirectController extends Controller
     {
         return $this->redirectService->getRedirectLogs($code);
     }
+
+    public function getStats($code)
+    {
+        return $this->redirectService->getStats($code);
+    }
 }
