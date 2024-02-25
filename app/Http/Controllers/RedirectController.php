@@ -19,22 +19,6 @@ class RedirectController extends Controller
 
     // Métodos para interação com as views no frontend (rotas web)
 
-    public function hashids_demo()
-    {
-        $id = 23234;
-        $this->redirectService->hashids_demo($id);
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
     // Métodos para interação com a API (rotas api)
     public function index()
     {
@@ -55,20 +39,11 @@ class RedirectController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'url_destino' => 'required|string',
-            'ativo' => 'required|boolean',
-        ]);
-
-        $this->redirectService->updateRedirect($id, $validatedData);
-
-        return response()->json(['message' => 'Redirect updated successfully'], 200);
+        //
     }
 
     public function destroy($id)
     {
-        $this->redirectService->deleteRedirect($id);
-
-        return response()->json(['message' => 'Redirect deleted successfully'], 204);
+        return $this->redirectService->destroy($id);
     }
 }

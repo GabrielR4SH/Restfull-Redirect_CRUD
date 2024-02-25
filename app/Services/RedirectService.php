@@ -32,5 +32,18 @@ class RedirectService
 
         return response()->json($redirect, 201);
     }
+
+    public function destroy($id)
+    {
+        $redirect = Redirect::where('code', $id)->first();
+
+        if (!$redirect) {
+            return response()->json(['message' => 'Redirect not found'], 404);
+        }
+
+        $redirect->delete();
+
+        return response()->json(['message' => 'Redirect deleted'], 200);
+    }
     
 }
