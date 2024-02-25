@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Redirect;
 use Illuminate\Http\Request;
 use App\Services\RedirectService;
-use Hashids\Hashids;
+use App\Http\Requests\RedirectRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class RedirectController extends Controller
 {
@@ -23,11 +24,6 @@ class RedirectController extends Controller
         $id = 23234;
         $this->redirectService->hashids_demo($id);
     }
-    public function webIndex()
-    {
-        $redirects = Redirect::all();
-        return view('redirects.index', compact('redirects'));
-    }
 
     public function create()
     {
@@ -43,7 +39,7 @@ class RedirectController extends Controller
     public function index()
     {
         return $this->redirectService->index();
-    } 
+    }
 
     public function show($id)
     {
@@ -51,17 +47,11 @@ class RedirectController extends Controller
         return response()->json($redirect);
     }
 
-    public function store(Request $request)
+    public function store(RedirectRequest $request)
     {
-        $validatedData = $request->validate([
-            'url_destino' => 'required|string',
-            'ativo' => 'required|boolean',
-        ]);
-
-        $this->redirectService->createRedirect($validatedData);
-
-        return response()->json(['message' => 'Redirect created successfully'], 201);
+        return $this->redirectService->store($request);
     }
+
 
     public function update(Request $request, $id)
     {

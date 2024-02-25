@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('redirects', function (Blueprint $table) {
             $table->id();
             $table->string('url_destino');
-            $table->string('code')->unique(); // Adicionando o campo 'code'
+            $table->string('code'); // Adicionando o campo 'code'
             $table->boolean('ativo')->default(true);
+            $table->timestamp('last_access')->nullable();
             $table->timestamps();
         });
     }

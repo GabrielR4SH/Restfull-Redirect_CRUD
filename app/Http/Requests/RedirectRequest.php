@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Http;
+use Hashids\Hashids;
+
 
 class RedirectRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class RedirectRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +27,32 @@ class RedirectRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'required|url',
-            'redirect' => 'required|url',
+            'url_destino' => [
+                'required',
+                'url',
+                'regex:/^https:\/\/.*/',
+                function ($attribute, $value, $fail) {
+                    $response = Http::get($value);
+                    if ($response->status() !== 200) {
+                        $fail('A URL de destino deve retornar um status 200.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    $url = parse_url($value);
+                    if ($url['host'] === request()->getHost()) {
+                        $fail('A URL de destino não pode apontar para a própria aplicação.');
+                    }
+                },
+            ],
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        $hashids = new Hashids();
+        $this->merge(['code' => $hashids->encode(uniqid())]);
+    }
+
+
+
 }
