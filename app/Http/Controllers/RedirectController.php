@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Redirect;
 use Illuminate\Http\Request;
 use App\Services\RedirectService;
+use Hashids\Hashids;
 
 class RedirectController extends Controller
 {
@@ -16,6 +17,12 @@ class RedirectController extends Controller
     }
 
     // Métodos para interação com as views no frontend (rotas web)
+
+    public function hashids_demo()
+    {
+        $id = 23234;
+        $this->redirectService->hashids_demo($id);
+    }
     public function webIndex()
     {
         $redirects = Redirect::all();
@@ -35,10 +42,8 @@ class RedirectController extends Controller
     // Métodos para interação com a API (rotas api)
     public function index()
     {
-        $redirects = Redirect::all();
-    
-        return response()->json($redirects);
-    }
+        return $this->redirectService->index();
+    } 
 
     public function show($id)
     {

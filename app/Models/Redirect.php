@@ -19,6 +19,7 @@ class Redirect extends Model
 
     public function getCodeAttribute()
     {
-        return Hashids::encode($this->id);
+        return $this->attributes['code'];
+
     }
 }
