@@ -38,21 +38,31 @@ Os testes automatizados da aplicação podem ser executados com o comando `php a
 
 ## ENDPOINTS explicados com POSTMAN
 - Para resgatar todos os dados: 
+<br>
 (GET) localhost:8000/api/redirects
 ![Resgatar todos os dados](imageOnets.png)
 
 - Para resgatar apenas um dado especificado: 
+<br>
 (GET) localhost:8000/api/redirects/{code}
 O retorno não exibe o ID, o Code é usado para especificar um retorno único:
 ![Resgatar um dado especificado](imageOnets2.png)
 
 - Para atualizar um dado específico: 
+<br>
 (PUT) localhost:8000/api/redirects/{code}
 Passe no corpo da requisição em JSON os dados que serão atualizados
-OBS: *SE VOCE DEIXER ATIVO = 0 A APLICAÇÃO NÃO VAI FAZER O REDIRECIONAMENTO*
+OBS: *SE VOCE DEIXER ATIVO = 0 NÃO TERÁ REDORECT*
+
 ![Atualizar um dado específico](imageOnets3.png)
 
 - Para deletar um dado: 
+<br>
 (DELETE) localhost:8000/api/redirects/{code}
 Após a deleção de um dado ele não vai aparecer mais no Endpoint de resgate, porém se você for no seu banco de dados e fizer uma consulta `select * from redirects` ele vai aparecer com o campo deleted_at:
 ![Deletar um dado](imageOnets4.png)
+
+
+- Para o redirect acesse  `localhost:8000/api/r/k5`
+*no lugar do k5 Digite outro code. esse redirect manda o usuario para o youtube por exemplo*
+*Após um redirect será exibido a ultima vez que ele foi acessado nas proximas solicitações*
