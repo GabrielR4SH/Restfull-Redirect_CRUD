@@ -1,15 +1,14 @@
-<?php
+<?php 
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Redirect extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'url_destino',
@@ -37,5 +36,4 @@ class Redirect extends Model
         }
         return $array;
     }
-
 }
