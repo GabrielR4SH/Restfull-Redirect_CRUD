@@ -15,4 +15,11 @@ class RedirectLog extends Model
         'accessed_at',
     ];
 
+    protected $dates = ['accessed_at', 'last_access'];
+
+    public function setLastAccessAttribute($value)
+    {
+        $this->attributes['last_access'] = $value;
+    }
+
 }

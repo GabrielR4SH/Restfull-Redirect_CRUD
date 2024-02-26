@@ -15,14 +15,19 @@ class RedirectService
     public function index()
     {
         $redirects = Redirect::all();
-
+    
         foreach ($redirects as $redirect) {
-            $redirect->id = $redirect->code;
-            unset($redirect->id); // Removi o atributo ID pra não vim no JSON
+            $lastAccess = RedirectLog::where('redirect_id', $redirect->id)
+                ->latest('accessed_at')
+                ->value('accessed_at');
+    
+            $redirect->last_access = $lastAccess ?: null;
+            unset($redirect->id);
         }
-
+    
         return response()->json($redirects, 200);
     }
+    
 
     public function store($request)
     {

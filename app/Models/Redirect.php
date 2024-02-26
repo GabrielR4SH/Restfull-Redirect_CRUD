@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -12,9 +12,12 @@ class Redirect extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'url_destino', 'code', 'ativo', 'last_access'
+        'url_destino',
+        'code',
+        'ativo',
+        'last_access'
     ];
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'last_access'];
 
     public function getRouteKeyName()
     {
@@ -24,6 +27,15 @@ class Redirect extends Model
     public function getCodeAttribute()
     {
         return $this->attributes['code'];
-
     }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+        if ($array['deleted_at'] === null) {
+            unset($array['deleted_at']);
+        }
+        return $array;
+    }
+
 }
