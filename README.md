@@ -1,3 +1,6 @@
+# OTIMEZE-ME: A lider do mercado
+![](https://otimize.me/wp-content/uploads/2024/01/hight-logo-otimize-branco.png)
+
 # Projeto de Redirecionamento de URLs
 
 Este é um projeto desenvolvido em Laravel para gerenciar redirecionamentos de URLs, incluindo estatísticas de acesso. O projeto permite a criação de redirecionamentos personalizados e o registro de acessos a esses redirecionamentos, fornecendo informações detalhadas sobre os acessos.
