@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RequestsSeeder::class);
         Redirect::factory(10)->create();
         RedirectLog::factory(10)->create();
     }

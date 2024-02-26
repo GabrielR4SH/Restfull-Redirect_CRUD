@@ -12,7 +12,7 @@ class RequestsSeeder extends Seeder
     {
         Redirect::create([
             'url_destino' => 'https://www.google.com',
-            'code' => Hashids::encode(1), // Gerando um código para o primeiro registro
+            'code' => Hashids::encode(1),
             'ativo' => true,
         ]);
 

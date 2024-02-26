@@ -22,10 +22,9 @@ class RedirectController extends Controller
         return $this->redirectService->index();
     }
 
-    public function show($id)
+    public function show($code)
     {
-        $redirect = Redirect::findOrFail($id);
-        return response()->json($redirect);
+        return $this->redirectService->show($code);
     }
 
     public function store(RedirectRequest $request)
