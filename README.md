@@ -43,12 +43,14 @@ Os testes automatizados da aplicação podem ser executados com o comando `php a
 - Para resgatar todos os dados: 
 <br>
 (GET) localhost:8000/api/redirects
+
 ![Resgatar todos os dados](imageOnets.png)
 
 - Para resgatar apenas um dado especificado: 
 <br>
 (GET) localhost:8000/api/redirects/{code}
 O retorno não exibe o ID, o Code é usado para especificar um retorno único:
+
 ![Resgatar um dado especificado](imageOnets2.png)
 
 - Para atualizar um dado específico: 
@@ -63,6 +65,7 @@ OBS: *SE VOCE DEIXER ATIVO = 0 NÃO TERÁ REDORECT*
 <br>
 (DELETE) localhost:8000/api/redirects/{code}
 Após a deleção de um dado ele não vai aparecer mais no Endpoint de resgate, porém se você for no seu banco de dados e fizer uma consulta `select * from redirects` ele vai aparecer com o campo deleted_at:
+
 ![Deletar um dado](imageOnets4.png)
 
 
